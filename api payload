@@ -1,0 +1,224 @@
+Invoice
+--------
+GET:http://127.0.0.1:8000/api/invoices/
+get all records:
+response:
+{
+    "status": "Invoice Data",
+    "data": [
+        {
+            "id": "0b6be84e-b901-4352-a1da-e9fb892f7083",
+            "date": "2023-10-07",
+            "customer_name": "nirmala1234"
+        },
+        {
+            "id": "936e85f1-898e-47d9-b426-101e2c4a0a68",
+            "date": "2023-10-07",
+            "customer_name": "nirmala1234edit"
+        },
+        {
+            "id": "ddf607af-18ef-47a1-b342-14dd7dd6b367",
+            "date": "2023-10-07",
+            "customer_name": "nirmala1234edit"
+        }
+    ]
+}
+
+GET:http://127.0.0.1:8000/api/invoices/?id=0b6be84e-b901-4352-a1da-e9fb892f7083
+get specific  record:
+response:
+{
+    "status": "Invoice Data",
+    "data": [
+        {
+            "id": "0b6be84e-b901-4352-a1da-e9fb892f7083",
+            "date": "2023-10-07",
+            "customer_name": "nirmala1234"
+        }
+    ]
+}
+
+
+POST: :http://127.0.0.1:8000/api/invoices/
+
+payload:{
+    "date": "2023-10-07",
+    "customer_name": "Vennela"
+}
+
+response:
+{
+    "status": 201,
+    "message": "Invoice Created Successfully",
+    "data": {
+        "id": "4dacd115-73e2-4832-84c1-f9fc25bb8e17",
+        "date": "2023-10-07",
+        "customer_name": "Vennela"
+    }
+}
+
+
+Update: :http://127.0.0.1:8000/api/invoices/
+
+payload:
+{
+    "id": "4dacd115-73e2-4832-84c1-f9fc25bb8e17",
+    "date": "2023-10-07",
+    "customer_name": "Vennela Edit"
+}
+
+response:
+{
+    "status": 200,
+    "message": "Invoice Successfully Updated",
+    "data": {
+        "id": "4dacd115-73e2-4832-84c1-f9fc25bb8e17",
+        "date": "2023-10-07",
+        "customer_name": "Vennela Edit"
+    }
+}
+
+Delete: :http://127.0.0.1:8000/api/invoices/?id=5e6accb0-a1a9-411e-8597-3062ede41bfc
+note: pass the id in query param
+
+
+Invoice Details API:
+====================
+GET : http://127.0.0.1:8000/api/invoices/0b6be84e-b901-4352-a1da-e9fb892f7083/
+
+response:
+{
+    "status": "Invoice Data",
+    "data": [
+        {
+            "id": "5ad44f4c-343f-4890-a5be-192971c181f3",
+            "description": "Apple Mobile Update",
+            "quantity": 5,
+            "price": "100.00",
+            "unite_price": "20.00", 
+            "invoice": "0b6be84e-b901-4352-a1da-e9fb892f7083"
+        }
+    ]
+}
+
+
+POST: http://127.0.0.1:8000/api/invoices/0b6be84e-b901-4352-a1da-e9fb892f7083/
+payload:
+{
+    "description": "Apple Mobile",
+    "quantity": 5,
+    "price": "100.00",
+    "unite_price": "20.00",
+    "invoice": "0b6be84e-b901-4352-a1da-e9fb892f7083"
+}
+
+response:
+{
+    "status": 201,
+    "message": "InvoiceDetails Created Successfully",
+    "data": {
+        "id": "5ad44f4c-343f-4890-a5be-192971c181f3",
+        "description": "Apple Mobile",
+        "quantity": 5,
+        "price": "100.00",
+        "unite_price": "20.00",
+        "invoice": "0b6be84e-b901-4352-a1da-e9fb892f7083"
+    }
+}
+
+Update:http://127.0.0.1:8000/api/invoices/0b6be84e-b901-4352-a1da-e9fb892f7083/
+
+payload:
+{
+    "id": "5ad44f4c-343f-4890-a5be-192971c181f3",
+    "description": "Apple Mobile Update",
+    "quantity": 5,
+    "price": "100.00",
+    "unite_price": "20.00",
+    "invoice": "0b6be84e-b901-4352-a1da-e9fb892f7083"
+}
+
+response:
+{
+    "status": 200,
+    "message": "Invoice Successfully Updated",
+    "data": {
+        "id": "5ad44f4c-343f-4890-a5be-192971c181f3",
+        "description": "Apple Mobile Update",
+        "quantity": 5,
+        "price": "100.00",
+        "unite_price": "20.00",
+        "invoice": "0b6be84e-b901-4352-a1da-e9fb892f7083"
+    }
+}
+
+
+Delete:http://127.0.0.1:8000/api/invoices/0b6be84e-b901-4352-a1da-e9fb892f7083/
+payload:
+    {
+        "id": "5ad44f4c-343f-4890-a5be-192971c181f3"
+    }
+
+response:{
+    "status": 200,
+    "message": "Invoice Deleted Successfully"
+}
+
+
+
+Test cases notes:
+
+=================
+install the package: pip install HTMLTestRunner-rv==1.1.2
+
+settings.py file changes:
+
+import statements:
+from django.test.runner import DiscoverRunner
+from HTMLTestRunner import HTMLTestRunner
+
+
+Add the code in the bottom of the page:
+
+TEST_TITLE = "INVOICE"
+TEST_REPORT_NAME = "Invoce Project"
+TEST_REPORTER_NAME = "NIRMALA"
+TEST_DESCRIPTION = "INVOICE PROJECT"
+
+
+class NoDbTestRunner(DiscoverRunner):
+    """A test runner to test without database creation."""
+
+    def setup_databases(self, **kwargs):
+        """Override the database creation defined in the parent class."""
+        pass
+
+    def teardown_databases(self, old_config, **kwargs):
+        """Override the database teardown defined in the parent class."""
+        pass
+
+    def run_suite(self, suite, **kwargs):
+        runner = HTMLTestRunner(
+            log=True,
+            verbosity=2,
+            output="report",
+            title=TEST_TITLE,
+            report_name=TEST_REPORT_NAME,
+            tested_by=TEST_REPORTER_NAME,
+            open_in_browser=True,
+            description=TEST_DESCRIPTION,
+            add_traceback=False,
+        )
+        result = runner.run(suite)
+        return result
+
+
+TEST_RUNNER = "InvoiceProject.settings.NoDbTestRunner"
+
+
+3. Created a Folder named tests in side the app level
+
+
+run test cases: python manage.py test 
+
+u will get list of test case reports in the browser
